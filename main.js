@@ -5,7 +5,7 @@ const url = require("url");
 let win;
 
 function createWindow() {
-  win = new BrowserWindow({ width: 800, height: 600 });
+  win = new BrowserWindow({ width: 1360, height: 920 });
 
   // load the dist folder from Angular
   win.loadURL(
@@ -17,7 +17,7 @@ function createWindow() {
   );
 
   // The following is optional and will open the DevTools:
-  win.webContents.openDevTools()
+  //win.webContents.openDevTools()
 
   win.on("closed", () => {
     win = null;
