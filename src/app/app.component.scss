@@ -133,7 +133,7 @@ h2 {
         background: $nav-hover-bg;
       }
     }
-    li.active a {
+    li a.active {
       color: $nav-active-color;
       background: $nav-active-bg;
     }
@@ -164,7 +164,7 @@ h2 {
     }
   }
   
-  #content {
+  .content {
     position: relative;
     top: 70px;
     padding: 20px;
@@ -359,6 +359,7 @@ h2 {
   }
   .body {
     padding: 20px 20px 8px;
+    margin-top: 70px;
   }
   .footer {
     padding: 10px 20px;
@@ -393,12 +394,38 @@ h2 {
 }
 
 .love {
-  text-align: center;
   color: lighten($nav-bg, 40%);
-  padding: 20px 0;
   
   .fa-heart {
     margin: 0 6px;
     font-size: 16px;
+    color: $green;
   }
+    #githubLink{
+      color: $green !important;
+    }
+    #githubLink:hover{
+      color: $green !important;
+    }
+  
+}
+.footer-fix-list {
+  position: relative;
+  bottom: -160px !important;
+  left: 39%;
+}
+.footer-fix {
+  position: relative;
+  bottom: -630px !important;
+  left: 39%;
+}
+.fix-position{
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    hr{
+      width: 714%;
+      position: absolute;
+      left: -24px;
+    }
 }

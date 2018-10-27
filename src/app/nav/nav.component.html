@@ -4,10 +4,9 @@
   </div>
   <ul>
       <li class="head">General</li>
-      <li class="active"><a href="#"><i class="fa fa-fw fa-dashboard"></i><span>Dashboard</span></a></li>
-      <li><a href="#"><i class="fa fa-fw fa-inbox"></i><span class="swatch light-grey">Inbox</span></a></li>
-      <li><a href="#"><i class="fa fa-fw fa-user"></i><span>Tenants</span></a></li>
-      <li><a href="#"><i class="fa fa-fw fa-money"></i><span>Payments</span></a></li>
-      <li><a href="#"><i class="fa fa-fw fa-cog"></i><span>Settings</span></a></li>
+      <li><a [routerLink]="['/home']" routerLinkActive="active" ><i class="fa fa-fw fa-dashboard"></i><span>Dashboard</span></a></li>
+      <li><a [routerLink]="['/create']" routerLinkActive="active"><i class="fa fa-fw fa-inbox"></i><span class="swatch light-grey">Inbox</span></a></li>
+      <li><a [routerLink]="['/destroy']" routerLinkActive="active"><i class="fa fa-fw fa-user"></i><span>Tenants</span></a></li>
+      <li><a [routerLink]="['/showIp']" routerLinkActive="active"><i class="fa fa-fw fa-money"></i><span>Payments</span></a></li>
   </ul>
 </div>
