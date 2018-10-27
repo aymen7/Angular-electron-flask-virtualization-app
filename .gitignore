@@ -37,3 +37,12 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Flask Files
+flask_REST_API/bin
+flask_REST_API/include
+flask_REST_API/lib
+flask_REST_API/share
+flask_REST_API/lib64
+flask_REST_API/*.cfg
+
