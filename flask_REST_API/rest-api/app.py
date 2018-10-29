@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_restful import Resource, Api
 import libvirt
 import os
+import json
 app = Flask(__name__)
 api = Api(app)
 
@@ -21,7 +22,7 @@ class vmsList(Resource):
                 domain = conn.lookupByID(domainID)
                 allDomains.append(domain.name())
         for domain in allDomains:
-            vms.update({ i: {'name': domain, 'status': 'null'} })
+            vms.update({ 'vm'+str(i): {'name': domain, 'status': 'null'} })
             i+=1
 
         '''    
@@ -39,7 +40,11 @@ class vmsList(Resource):
         '''    
 
         # vms1 = conn.networkLookupByName("default").DHCPLeases()
-        return jsonify({'listAllDomains': vms})
+        #return jsonify({'listAllDomains': vms})
+        vms1 = json.dumps(vms)
+        vms1 = json.loads(vms1)
+        return vms1
+        
 
 api.add_resource(vmsList, '/vms')
 
