@@ -1,11 +1,12 @@
 <div class='content fix-position'>
     <h1>Host Name: {{hostName}}</h1>
     <hr>
-    <div class="box">
-        <div class="body">
-            <p>destroy-vm works!.</p>
-        </div>
-    </div>
+    <form [formGroup]="myForm" (ngSubmit)="formSubmit(myForm.value)">
+            <div class='form-group'>
+                  <input id='vmName' class="form-control" type="text" placeholder="enter the name of vm here" [formControl]="myForm.controls['vmName']">
+                  <button class='btn btn-success' type='submit'>submit</button>
+            </div>
+        </form>  
   </div>
   <div class='footer-fix'>
         <app-footer></app-footer>

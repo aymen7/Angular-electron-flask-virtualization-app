@@ -65,10 +65,22 @@ class vmsList(Resource):
         vms1 = json.dumps(vms)
         vms1 = json.loads(vms1)
         return vms1
-        
+class createVm(Resource):
+    def get(self, vm_name):
+        vm = conn.lookupByName(vm_name)
+        vm.create()
+        os.system("virt-viewer "+vm.name()+"&")
+
+class deleteVm(Resource):
+    def get(self, vm_name):
+        vmDes = conn.lookupByName(vm_name)
+        vmDes.destroy()
+
 
 api.add_resource(host, '/')
 api.add_resource(vmsList, '/vms')
+api.add_resource(createVm, '/create/<string:vm_name>')
+api.add_resource(deleteVm, '/delete/<string:vm_name>')
 
 if __name__ == '__main__':
     app.run(debug=True)        
