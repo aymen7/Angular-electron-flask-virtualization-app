@@ -8,6 +8,11 @@ api = Api(app)
 
 # declare a conn variable 
 conn = libvirt.open('qemu:///system')
+
+class host(Resource):
+    def get(self):
+        return jsonify({'hostName':conn.getHostname()})
+
 class vmsList(Resource):
     def get(self):
         # here we gonna put the json response object
@@ -46,6 +51,7 @@ class vmsList(Resource):
         return vms1
         
 
+api.add_resource(host, '/')
 api.add_resource(vmsList, '/vms')
 
 if __name__ == '__main__':

@@ -9,8 +9,10 @@ import { VirtualizationService } from 'src/app/virtualization.service';
 })
 export class VmsListComponent implements OnInit {
   definedDomainsList: any;
+  hostName: string;
   constructor(private _virtualService: VirtualizationService) {
     this.definedDomainsList = {};
+    this.hostName = '';
    }
   fetchDefinedDomainList() {
     this._virtualService.getAllDefinedDomains().subscribe(
@@ -21,8 +23,16 @@ export class VmsListComponent implements OnInit {
       }
     );
   }
+  fetchHostName() {
+    this._virtualService.getHostName().subscribe(
+      data => {
+        this.hostName = data.hostName;
+      }
+    );
+  }
   ngOnInit() {
     this.fetchDefinedDomainList();
+    this.fetchHostName();
   }
 
 }
