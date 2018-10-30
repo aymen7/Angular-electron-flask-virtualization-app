@@ -5,6 +5,7 @@ import os
 import json
 # import the minidom module and that's for the xmlPArsing
 from xml.dom import minidom
+
 app = Flask(__name__)
 api = Api(app)
 
@@ -24,17 +25,25 @@ class vmsList(Resource):
         i = 1
         allDomains = conn.listDefinedDomains();
         for stopDomain in allDomains:
-            vms.update({ 'vm'+str(i): {'name': stopDomain, 'status': 'stopped'} })
+            xmldoc = minidom.parse('/../../../../../../../../../../etc/libvirt/qemu/'+stopDomain+'.xml')
+            mac = xmldoc.getElementsByTagName('mac')[0].attributes['address'].value
+            vms.update({ 'vm'+str(i): {'name': stopDomain, 'status': 'stopped', 'MAC': mac, 'ip': 'N/A'} })
             i+=1
 
         domainIDs = conn.listDomainsID()
         runningDomainList = []
         for domainID in domainIDs:
+            ip = ''
             domain = conn.lookupByID(domainID)
             runningDomainList.append(domain.name())
         if (len(runningDomainList)>0):
             for domain in runningDomainList:
-                vms.update({ 'vm'+str(i): {'name': domain, 'status': 'running'} })
+                xmldoc = minidom.parse('/../../../../../../../../../../etc/libvirt/qemu/'+domain+'.xml')
+                mac = xmldoc.getElementsByTagName('mac')[0].attributes['address'].value
+                for lease in conn.networkLookupByName("default").DHCPLeases():
+                    if lease['mac'] == mac:
+                        ip = lease['ipaddr']
+                vms.update({ 'vm'+str(i): {'name': domain, 'status': 'running', 'MAC': mac, 'ip': ip} })
                 i+=1
 
         '''    
