@@ -3,6 +3,8 @@ from flask_restful import Resource, Api
 import libvirt
 import os
 import json
+# import the minidom module and that's for the xmlPArsing
+from xml.dom import minidom
 app = Flask(__name__)
 api = Api(app)
 
@@ -21,14 +23,19 @@ class vmsList(Resource):
         # create a count var       
         i = 1
         allDomains = conn.listDefinedDomains();
-        domainIDs = conn.listDomainsID()
-        if len(domainIDs) != 0:
-            for domainID in domainIDs:
-                domain = conn.lookupByID(domainID)
-                allDomains.append(domain.name())
-        for domain in allDomains:
-            vms.update({ 'vm'+str(i): {'name': domain, 'status': 'null'} })
+        for stopDomain in allDomains:
+            vms.update({ 'vm'+str(i): {'name': stopDomain, 'status': 'stopped'} })
             i+=1
+
+        domainIDs = conn.listDomainsID()
+        runningDomainList = []
+        for domainID in domainIDs:
+            domain = conn.lookupByID(domainID)
+            runningDomainList.append(domain.name())
+        if (len(runningDomainList)>0):
+            for domain in runningDomainList:
+                vms.update({ 'vm'+str(i): {'name': domain, 'status': 'running'} })
+                i+=1
 
         '''    
             # listDomainsID() gives you the define domains that currently are running

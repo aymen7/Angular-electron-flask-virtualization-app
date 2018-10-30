@@ -3,6 +3,10 @@
     border: solid thin $dark-grey;
 }
 .stopped-icon{
-    color: silver;
+    color: $red;
+    font-size: 27px;
+}
+.running-icon{
+    color: $green;
     font-size: 27px;
 }

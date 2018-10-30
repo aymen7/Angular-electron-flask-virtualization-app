@@ -11,7 +11,10 @@
               <div class="header">
                   <h5 class="pull-left">{{definedDomainsList.vm1.name}}</h5>
                   <span class="pull-right">Status</span><br>
-                  <span class="pull-right"><i class="fa fa-circle stopped-icon" *ngIf="definedDomainsList.vm1.status == 'null'"></i></span>
+                  <span class="pull-right">
+                      <i class="fa fa-circle stopped-icon" *ngIf="definedDomainsList.vm1.status == 'stopped'"></i>
+                      <i class="fa fa-circle running-icon" *ngIf="definedDomainsList.vm1.status == 'running'"></i>
+                    </span>
                   <div class="clear-left"><span>Domain Name</span></div>
               </div>
               <div class="body">
@@ -29,7 +32,10 @@
             <div class="header">
                 <h5 class="pull-left">{{definedDomainsList.vm2.name}}</h5>
                 <span class="pull-right">Status</span><br>
-                <span class="pull-right"><i class="fa fa-circle stopped-icon" *ngIf="definedDomainsList.vm2.status == 'null'"></i></span>
+                <span class="pull-right">
+                    <i class="fa fa-circle stopped-icon" *ngIf="definedDomainsList.vm2.status == 'stopped'"></i>
+                    <i class="fa fa-circle running-icon" *ngIf="definedDomainsList.vm2.status == 'running'"></i>
+                </span>
                 <div class="clear-left"><span>Domain Name</span></div>
             </div>
             <div class="body">
@@ -47,7 +53,10 @@
             <div class="header">
                 <h5 class="pull-left">{{definedDomainsList.vm3.name}}</h5>
                 <span class="pull-right">Status</span><br>
-                <span class="pull-right"><i class="fa fa-circle stopped-icon" *ngIf="definedDomainsList.vm3.status == 'null'"></i></span>
+                <span class="pull-right">
+                    <i class="fa fa-circle stopped-icon" *ngIf="definedDomainsList.vm3.status == 'stopped'"></i>
+                    <i class="fa fa-circle running-icon" *ngIf="definedDomainsList.vm3.status == 'running'"></i>
+                </span>
                 <div class="clear-left"><span>Domain Name</span></div>
             </div>
             <div class="body">
