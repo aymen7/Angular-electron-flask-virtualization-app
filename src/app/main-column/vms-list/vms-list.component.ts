@@ -18,6 +18,11 @@ export class VmsListComponent implements OnInit {
     this._virtualService.getAllDefinedDomains().subscribe(
       data => {
         this.definedDomainsList = data;
+      },
+      err => {
+        console.log(`failed: ${err}`);
+      },
+      () => {
         console.log(this.definedDomainsList);
         console.log(`length= ${this.definedDomainsList.vm1.length}`);
       }
