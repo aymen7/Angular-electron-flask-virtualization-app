@@ -16,7 +16,7 @@ class host(Resource):
     def get(self):
         return jsonify({'hostName':conn.getHostname()})
 
-class vmsList(Resource):
+class vmsList(Resource):                
     def get(self):
         # here we gonna put the json response object
         vms = {}
@@ -46,41 +46,33 @@ class vmsList(Resource):
                 vms.update({ 'vm'+str(i): {'name': domain, 'status': 'running', 'MAC': mac, 'ip': ip} })
                 i+=1
 
-        '''    
-            # listDomainsID() gives you the define domains that currently are running
-            domainIDs = conn.listDomainsID()
-            for domainId in domainIDs:
-                domain = conn.lookupByID(domainId)
-                vms.update({ i: {'name': str(domain.name), 'status': 'running'} })
-        '''
-        '''
-            domains = conn.listAllDomains(0)
-            for domain in domains:
-                vms.update({ i: {'name': domain.name(), 'status': 'running'} })        
-                i+1
-        '''    
-
         # vms1 = conn.networkLookupByName("default").DHCPLeases()
         #return jsonify({'listAllDomains': vms})
         vms1 = json.dumps(vms)
         vms1 = json.loads(vms1)
-        return vms1
+        return vms1, 200
+
 class createVm(Resource):
-    def get(self, vm_name):
+    def post(self):
+        data_received = request.get_json()
+        vm_name = data_received['vm_name']
         vm = conn.lookupByName(vm_name)
         vm.create()
         os.system("virt-viewer "+vm.name()+"&")
+        return vm_name, 201
 
 class deleteVm(Resource):
-    def get(self, vm_name):
+    def post(self):
+        data_received = request.get_json()
+        vm_name = data_received['vm_name']
         vmDes = conn.lookupByName(vm_name)
         vmDes.destroy()
-
+        return vm_name, 200
 
 api.add_resource(host, '/')
 api.add_resource(vmsList, '/vms')
-api.add_resource(createVm, '/create/<string:vm_name>')
-api.add_resource(deleteVm, '/delete/<string:vm_name>')
+api.add_resource(createVm, '/create')
+api.add_resource(deleteVm, '/delete')
 
 if __name__ == '__main__':
     app.run(debug=True)        
