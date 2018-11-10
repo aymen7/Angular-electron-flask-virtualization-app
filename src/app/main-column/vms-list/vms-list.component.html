@@ -6,70 +6,27 @@
       </div>
   </div>
   <div class="row">
-      <div class="col-sm-4" *ngIf="definedDomainsList.vm1">
+      <div class="col-sm-4" *ngFor="let vm of definedDomainsList">
           <div class="box property-glance">
               <div class="header">
-                  <h5 class="pull-left">{{definedDomainsList.vm1.name}}</h5>
+                  <h5 class="pull-left">{{vm.name}}</h5>
                   <span class="pull-right">Status</span><br>
                   <span class="pull-right">
-                      <i class="fa fa-circle stopped-icon" *ngIf="definedDomainsList.vm1.status == 'stopped'"></i>
-                      <i class="fa fa-circle running-icon" *ngIf="definedDomainsList.vm1.status == 'running'"></i>
+                      <i class="fa fa-circle stopped-icon" *ngIf="vm.status == 'stopped'"></i>
+                      <i class="fa fa-circle running-icon" *ngIf="vm.status == 'running'"></i>
                     </span>
                   <div class="clear-left"><span>Domain Name</span></div>
               </div>
               <div class="body">
                   <div class="row">
                       <div class="col-sm-6 statistic text-center">
-                          <h2>{{definedDomainsList.vm1.ip}}</h2><small>ip</small></div>
+                          <h2>{{vm.ip}}</h2><small>ip</small></div>
                       <div class="col-sm-6 text-center">
-                          <h2>{{definedDomainsList.vm1.MAC}}</h2><small>MAC address</small></div>
+                          <h2>{{vm.mac}}</h2><small>MAC address</small></div>
                   </div>
               </div>
           </div>
       </div>
-      <div class="col-sm-4" *ngIf="definedDomainsList.vm2">
-        <div class="box property-glance">
-            <div class="header">
-                <h5 class="pull-left">{{definedDomainsList.vm2.name}}</h5>
-                <span class="pull-right">Status</span><br>
-                <span class="pull-right">
-                    <i class="fa fa-circle stopped-icon" *ngIf="definedDomainsList.vm2.status == 'stopped'"></i>
-                    <i class="fa fa-circle running-icon" *ngIf="definedDomainsList.vm2.status == 'running'"></i>
-                </span>
-                <div class="clear-left"><span>Domain Name</span></div>
-            </div>
-            <div class="body">
-                <div class="row">
-                    <div class="col-sm-6 statistic text-center">
-                        <h2>{{definedDomainsList.vm2.ip}}</h2><small>ip</small></div>
-                    <div class="col-sm-6 text-center">
-                        <h2>{{definedDomainsList.vm2.MAC}}</h2><small>MAC address</small></div>
-                </div>
-            </div>
-        </div>
-      </div>
-      <div class="col-sm-4" *ngIf="definedDomainsList.vm3">
-        <div class="box property-glance">
-            <div class="header">
-                <h5 class="pull-left">{{definedDomainsList.vm3.name}}</h5>
-                <span class="pull-right">Status</span><br>
-                <span class="pull-right">
-                    <i class="fa fa-circle stopped-icon" *ngIf="definedDomainsList.vm3.status == 'stopped'"></i>
-                    <i class="fa fa-circle running-icon" *ngIf="definedDomainsList.vm3.status == 'running'"></i>
-                </span>
-                <div class="clear-left"><span>Domain Name</span></div>
-            </div>
-            <div class="body">
-                <div class="row">
-                    <div class="col-sm-6 statistic text-center">
-                        <h2>{{definedDomainsList.vm1.ip}}</h2><small>ip</small></div>
-                    <div class="col-sm-6 text-center">
-                        <h2>{{definedDomainsList.vm3.MAC}}</h2><small>MAC address</small></div>
-                </div>
-            </div>
-        </div>
-      </div>
-
   </div>
 </div>
 <div class='footer-fix-list'>

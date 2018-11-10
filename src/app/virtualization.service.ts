@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Vm } from './Vm.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,8 @@ export class VirtualizationService {
   getHostName(): Observable<any> {
     return this._http.get(this.BASE_URL);
   }
-  getAllDefinedDomains(): Observable <any> {
-    return this._http.get(`${this.BASE_URL}/vms`);
+  getAllDefinedDomains(): Observable <Vm[]> {
+    return this._http.get<Vm[]>(`${this.BASE_URL}/vms`);
   }
   createVm(str: string): Observable <any> {
     let headers: HttpHeaders = new HttpHeaders();

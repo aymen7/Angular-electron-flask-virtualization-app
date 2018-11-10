@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DefinedDomain } from 'src/app/DefinedDomain.model';
 import { VirtualizationService } from 'src/app/virtualization.service';
+import { Vm } from 'src/app/Vm.model';
 
 @Component({
   selector: 'app-vms-list',
@@ -8,11 +9,11 @@ import { VirtualizationService } from 'src/app/virtualization.service';
   styleUrls: ['./vms-list.component.scss']
 })
 export class VmsListComponent implements OnInit {
-  definedDomainsList: any;
+  definedDomainsList: Vm[];
   hostName: string;
   constructor(private _virtualService: VirtualizationService) {
-    this.definedDomainsList = {};
     this.hostName = '';
+    // this.fetchDefinedDomainList();
    }
   fetchDefinedDomainList() {
     this._virtualService.getAllDefinedDomains().subscribe(
@@ -23,8 +24,9 @@ export class VmsListComponent implements OnInit {
         console.log(`failed: ${err}`);
       },
       () => {
-        console.log(this.definedDomainsList);
-        console.log(`length= ${this.definedDomainsList.vm1.length}`);
+        // console.log(this.definedDomainsList);
+        console.log(`length= ${this.definedDomainsList.length}`);
+        this.definedDomainsList.forEach(e => console.log(`${e[0]}-${e[1]}-${e[2]}-${e[3]}`));
       }
     );
   }
