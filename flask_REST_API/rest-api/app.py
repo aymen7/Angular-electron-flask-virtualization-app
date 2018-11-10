@@ -3,6 +3,7 @@ from flask_restful import Resource, Api
 import libvirt
 import os
 import json
+from json import JSONEncoder
 # import the minidom module and that's for the xmlPArsing
 from xml.dom import minidom
 
@@ -19,7 +20,7 @@ class host(Resource):
 class vmsList(Resource):                
     def get(self):
         # here we gonna put the json response object
-        vms = {}
+        vms = []
         # listDefinedDomains() gives you the define domains that currently are not running
         # create a count var       
         i = 1
@@ -27,7 +28,10 @@ class vmsList(Resource):
         for stopDomain in allDomains:
             xmldoc = minidom.parse('/../../../../../../../../../../etc/libvirt/qemu/'+stopDomain+'.xml')
             mac = xmldoc.getElementsByTagName('mac')[0].attributes['address'].value
-            vms.update({ 'vm'+str(i): {'name': stopDomain, 'status': 'stopped', 'MAC': mac, 'ip': 'N/A'} })
+            # vm = Vm(stopDomain,'stopped',mac,'N/A').toJSON()
+            vm = json.dumps({'name': stopDomain, 'status': 'stopped' , 'mac' : mac, 'ip':'N/A'})
+            vm = json.loads(vm)
+            vms.append(vm)
             i+=1
 
         domainIDs = conn.listDomainsID()
@@ -43,14 +47,16 @@ class vmsList(Resource):
                 for lease in conn.networkLookupByName("default").DHCPLeases():
                     if lease['mac'] == mac:
                         ip = lease['ipaddr']
-                vms.update({ 'vm'+str(i): {'name': domain, 'status': 'running', 'MAC': mac, 'ip': ip} })
+                vm = json.dumps({'name': stopDomain, 'status': 'running' , 'mac' : mac, 'ip':ip})
+                vm = json.loads(vm)
+                vms.append(vm)
+                #vms.update({ 'vm'+str(i): {'name': domain, 'status': 'running', 'MAC': mac, 'ip': ip} })
                 i+=1
 
-        # vms1 = conn.networkLookupByName("default").DHCPLeases()
-        #return jsonify({'listAllDomains': vms})
-        vms1 = json.dumps(vms)
-        vms1 = json.loads(vms1)
-        return vms1, 200
+        # return jsonify({'listAllDomains': vms}), 200
+        #vms1 = json.dumps(vms)
+        #vms1 = json.loads(vms1)
+        return vms, 200
 
 class createVm(Resource):
     def post(self):
